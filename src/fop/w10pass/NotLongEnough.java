@@ -1,8 +1,8 @@
 package fop.w10pass;
 
-public class NotEnoughLengthException extends NotEnoughException{
+public class NotLongEnough extends NotEnoughException{
 
-    public NotEnoughLengthException(int should, int is) {
+    public NotLongEnough(int should, int is) {
         super(should, is);
     }
 

@@ -25,10 +25,10 @@ public class Password {
         this.illegalChars = illegalChars;
     }
 
-    public void checkFormat(String pwd) throws IllegalCharException, NotEnoughLengthException, NotEnoughUpperCase, NotEnoughLowerCase, NotEnoughNumber, NotEnoughSpecial {
+    public void checkFormat(String pwd) throws IllegalCharException, NotLongEnough, NotEnoughUpperCase, NotEnoughLowerCase, NotEnoughNumber, NotEnoughSpecial {
         int lengthIs = pwd.length();
         if(lengthIs < lengthShould){
-            throw new NotEnoughLengthException(lengthShould, lengthIs);
+            throw new NotLongEnough(lengthShould, lengthIs);
         }
         int letterUpper = 0;
         int letterLower = 0;
