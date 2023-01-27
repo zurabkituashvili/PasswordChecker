@@ -7,9 +7,11 @@ public class Password {
 
     private static boolean matchesIllegalCharacter(char[] illegalChars,
             char c) {
-        for (int i = 0; i < illegalChars.length; i++)
-            if (c == illegalChars[i])
+        for (int i = 0; i < illegalChars.length; i++) {
+            if (c == illegalChars[i]) {
                 return true;
+            }
+        }
         return false;
     }
 
@@ -23,6 +25,44 @@ public class Password {
         this.illegalChars = illegalChars;
     }
 
-    public void checkFormat(String pwd) {
+    public void checkFormat(String pwd) throws IllegalCharException, NotEnoughLengthException, NotEnoughUpperCase, NotEnoughLowerCase, NotEnoughNumber, NotEnoughSpecial {
+        int lengthIs = pwd.length();
+        if(lengthIs < lengthShould){
+            throw new NotEnoughLengthException(lengthShould, lengthIs);
+        }
+        int letterUpper = 0;
+        int letterLower = 0;
+        int specials = 0;
+        int numberIs = 0;
+        for (int i = 0; i < pwd.length(); i++){
+            char ch  = pwd.charAt(i);
+            if (matchesIllegalCharacter(illegalChars, ch)){
+                throw new IllegalCharException(ch);
+            }
+            else if (ch>= 'A' && ch <= 'Z'){
+                letterUpper++;
+            }
+            else if (ch >= 'a' && ch <= 'z'){
+                letterLower++;
+            }
+            else if (ch >= '0' && ch <= '9'){
+                numberIs++;
+            }
+            else{
+                specials++;
+            }
+        }
+        if (letterUpper < nrUpperShould){
+            throw new NotEnoughUpperCase(nrUpperShould, letterUpper);
+        }
+        if (letterLower < nrLowerShould){
+            throw new NotEnoughLowerCase(nrLowerShould, letterLower);
+        }
+        if (numberIs < nrNumbersShould){
+            throw new NotEnoughNumber(nrNumbersShould, numberIs);
+        }
+        if (specials < nrSpecialShould){
+            throw new NotEnoughSpecial(nrSpecialShould, specials);
+        }
     }
 }
